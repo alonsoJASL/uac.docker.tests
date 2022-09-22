@@ -25,17 +25,17 @@ for pf in ${parfile_array[@]}; do
 done
 
 echo "=====Old UAC approximation====="
-python $PROJECT/docker/entrypoint.py uac --uac-stage 1 --atrium $ATRIUM --layer $LAYER --fibre $FIBRE --msh Labelled --uac-tags 11 13 21 23 25 27 --landmarks Landmarks.txt --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
+python $PROJECT/docker/entrypoint.py uac --uac-stage 1 --atrium $ATRIUM --layer $LAYER --fibre $FIBRE --msh Labelled --tags 11 13 21 23 25 27 --landmarks Landmarks.txt --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
 
 echo "=====Old UAC approximation - openCARP Docker ====="
 
 echo "=====New UAC====="
-python $PROJECT/docker/entrypoint.py uac --uac-stage 2a --atrium $ATRIUM --layer $LAYER --fibre $FIBRE --msh Labelled --uac-tags 11 13 21 23 25 27 --landmarks Landmarks.txt --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
+python $PROJECT/docker/entrypoint.py uac --uac-stage 2a --atrium $ATRIUM --layer $LAYER --fibre $FIBRE --msh Labelled --tags 11 13 21 23 25 27 --landmarks Landmarks.txt --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
 
 echo "=====New UAC - openCARP Docker====="
 
 echo "=====New UAC part 2====="
-python $PROJECT/docker/entrypoint.py uac --uac-stage 2b --atrium $ATRIUM --layer $LAYER --fibre $FIBRE --msh Labelled --uac-tags 11 13 21 23 25 27 --landmarks Landmarks.txt --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
+python $PROJECT/docker/entrypoint.py uac --uac-stage 2b --atrium $ATRIUM --layer $LAYER --fibre $FIBRE --msh Labelled --tags 11 13 21 23 25 27 --landmarks Landmarks.txt --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
 
 echo "=====Add fibres2====="
 # python $PROJECT/uac/fibre_mapping.py "$DATA/" "$PROJECT/fibre_files/la/endo/$i/" "$PROJECT/laplace_files/" Labelled Labelled_6_1.lon Fibre_1

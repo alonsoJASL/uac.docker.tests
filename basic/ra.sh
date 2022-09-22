@@ -25,19 +25,19 @@ done
 
 echo "=====Old UAC approximation====="
 # python $PROJECT/uac/1_ra.py "$DATA/" "$PROJECT/fibre_files/ra/endo/$i/" "$PROJECT/laplace_files/" $MeshName 1 6 7 5 2 $Landmarks $Region 1
-python $PROJECT/docker/entrypoint.py uac --uac-stage 1 --atrium ra --layer endo --fibre 1 --msh "$MeshName" --uac-tags 1 6 7 5 2 --landmarks $Landmarks --regions $Region --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
+python $PROJECT/docker/entrypoint.py uac --uac-stage 1 --atrium ra --layer endo --fibre 1 --msh "$MeshName" --tags 1 6 7 5 2 --landmarks $Landmarks --regions $Region --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
 
 echo "=====Old UAC approximation - openCARP Docker====="
 
 echo "=====New UAC====="
 # python $PROJECT/uac/2a_ra.py "$DATA/" "$PROJECT/fibre_files/ra/endo/$i/" "$PROJECT/laplace_files/" $MeshName 1 6 7 5 2 $Landmarks $Region 1
-python $PROJECT/docker/entrypoint.py uac --uac-stage 2a --atrium ra --layer endo --fibre 1 --msh "$MeshName" --uac-tags 1 6 7 5 2 --landmarks $Landmarks --regions $Region --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
+python $PROJECT/docker/entrypoint.py uac --uac-stage 2a --atrium ra --layer endo --fibre 1 --msh "$MeshName" --tags 1 6 7 5 2 --landmarks $Landmarks --regions $Region --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
 
 echo "=====New UAC - openCARP Docker====="
 
 echo "=====New UAC part 2====="
 # python $PROJECT/uac/2b_ra.py "$DATA/" $MeshName 1 6 7 5 2 1
-python $PROJECT/docker/entrypoint.py uac --uac-stage 2b --atrium ra --layer endo --fibre 1 --msh "$MeshName" --uac-tags 1 6 7 5 2 --landmarks $Landmarks --regions $Region --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
+python $PROJECT/docker/entrypoint.py uac --uac-stage 2b --atrium ra --layer endo --fibre 1 --msh "$MeshName" --tags 1 6 7 5 2 --landmarks $Landmarks --regions $Region --scale 1 --dev-code-dir $PROJECT  --dev-base-dir "$DATA" --debug
 
 echo "=====Add fibres====="
 # python $PROJECT/uac/fibre_mapping.py "$DATA/" "$PROJECT/fibre_files/ra/endo/$i/" "$PROJECT/laplace_files/" $MeshName Labelled.lon Fibres
