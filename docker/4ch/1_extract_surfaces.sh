@@ -43,7 +43,6 @@ cp ${inputPath}/LA_cc.part0.vtk ${outputPath2}/LA_2.vtk
 meshtool extract surface -msh=${inputPath}/01-350um.vtk -surf=${inputPath}/RA -ofmt=vtk -op=4-12,13,15,23,24
 #meshtool extract surface -msh=${inputPath}/Full_Heart_Mesh_${caseNum}.vtk -surf=${inputPath}/RA -ofmt=vtk -op=4-12,13,15,23,24
 
-
 meshtool extract unreachable -msh=${inputPath}/RA.surfmesh.vtk -submsh=${inputPath}/RA_cc -ofmt=vtk
 
 meshtool convert -imsh=${inputPath}/RA_cc.part1.vtk -omsh=${outputPath3}/RA_1 -ofmt=carp_txt
