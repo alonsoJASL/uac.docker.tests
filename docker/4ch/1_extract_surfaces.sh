@@ -3,8 +3,8 @@ set -euo pipefail
 
 if [ $# -eq 0 ] ; then
     >&2 echo 'No arguments supplied'
-    >&2 echo '  PROJECT'
-    >&2 echo '  inputPath'
+    >&2 echo '  PROJECT - UAC project folder'
+    >&2 echo '  inputPath - keeps the Landmarks/ folder and the 01-350um.vtk test case'
     exit 1
 fi
 
@@ -31,7 +31,7 @@ mkdir ${outputPath5}
 mkdir ${outputPath6}
 
 
-meshtool extract surface -msh=${inputPath}/01-350um.vtk -surf=${inputPath}/LA -ofmt=vtk -op=3-14,7,8,9,10,11,18,19,20,21,22
+meshtool extract  surface -msh=${inputPath}/01-350um.vtk -surf=${inputPath}/LA -ofmt=vtk -op=3-14,7,8,9,10,11,18,19,20,21,22
 
 meshtool extract unreachable -msh=${inputPath}/LA.surfmesh.vtk -submsh=${inputPath}/LA_cc -ofmt=vtk
 
@@ -41,7 +41,6 @@ cp ${inputPath}/LA_cc.part1.vtk ${outputPath1}/LA_1.vtk
 cp ${inputPath}/LA_cc.part0.vtk ${outputPath2}/LA_2.vtk
 
 meshtool extract surface -msh=${inputPath}/01-350um.vtk -surf=${inputPath}/RA -ofmt=vtk -op=4-12,13,15,23,24
-#meshtool extract surface -msh=${inputPath}/Full_Heart_Mesh_${caseNum}.vtk -surf=${inputPath}/RA -ofmt=vtk -op=4-12,13,15,23,24
 
 meshtool extract unreachable -msh=${inputPath}/RA.surfmesh.vtk -submsh=${inputPath}/RA_cc -ofmt=vtk
 
