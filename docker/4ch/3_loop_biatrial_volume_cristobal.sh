@@ -4,6 +4,9 @@
 PROJECT="$HOME/uac-refact"
 DATA="$HOME/tests-refact/4ch"
 
+me=$(basename "$0" | awk -F. '{print $1}')
+logfile=$DATA/$me"_"$(date +'%m%d%Y').log
+
 
 docker run --rm --volume="$DATA/LA_vol":/data getparfile --lapsolve-par "carpf_laplace_alpha.par"
 docker run --rm --volume="$DATA/LA_vol":/data getparfile --lapsolve-par "carpf_laplace_beta.par"
