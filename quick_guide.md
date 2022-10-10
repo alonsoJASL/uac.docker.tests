@@ -1,4 +1,4 @@
-# README
+# QUICK GUIDE 
 Docker containers have to be **pulled** -like git repos. 
 Make sure you get the right version, as the container described here is new, 
 you will need to call it with its full name `docker pull cemrg/uac:3.0-alpha`. 
@@ -32,22 +32,26 @@ docker run --rm --volume=/path/to/your/DATA:/data cemrg/uac:3.0-alpha COMMAND PA
 
 -------------------------------------------------------------------------------
 
-### 2. Calculating UAC
+### 2. UAC
 There are 2 stages to calculating UAC: 1, 2a, and 2b, 
 in between the stages there are calls to openCARP for the Laplace solves. 
+Parameters and options of the `uac` mode of operation: 
+
++ `--uac-stage`: Which stage of the processing: `{1, 2a, 2b}`
++ `--atrium`: Choose between `la` or `ra`
++ `--layer` : Choose between `endo`, `epi` or `bilayer`
++ `--fourch`: indicates the container to use the 4 Chamber variant of the code.
++ `--msh`   : indicate the mesh name in carp format (no extension)
++ `--landmarks` : indicate name with extension of Landmarks file 
++ `--regions` : indicate name with extension of Regions file 
+
 
 **Stage 1**
-``` shell
-docker run --rm --volume=$DATA:/data cemrg/uac:3.0-alpha \
-    uac --uac-stage 1 --atrium la --layer endo --fourch --msh MeshName \ 
-        --landmarks Landmarks.txt --regions Regions.txt --scale 1000 
-```
-In a single line: 
 ``` shell
 docker run --rm --volume=$DATA:/data cemrg/uac:3.0-alpha uac --uac-stage 1 --atrium la --layer endo --fourch --msh MeshName --landmarks Landmarks.txt --regions Regions.txt --scale 1000 
 ```
 
-> The parameter `--fourch` indicates the container to use the 4 Chamber variant of the code.
+-------------------------------------------------------------------------------
 
 **Laplace Solves (1).**
 You need to get the parameter files for the posterior-anterior (`PA`) and 
@@ -67,6 +71,7 @@ docker run --rm --volume="$DATA":/shared:z --workdir=/shared docker.opencarp.org
 docker run --rm --volume="$DATA":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F carpf_laplace_LS.par -simID LR_UAC_N2
 
 ```
+-------------------------------------------------------------------------------
 
 **Stage 2a**
 Notice the only change is in the `--uac-stage` parameter from `1` to `2a`
