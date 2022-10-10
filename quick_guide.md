@@ -26,9 +26,13 @@ docker run --rm --volume=/path/to/your/DATA:/data cemrg/uac:3.0-alpha COMMAND PA
 + Mesh Folders: `LA_endo, LA_epi`, `RA_endo , RA_epi` 
 + Landmarks Folders: `Landmarks/XX/ prodXxLandmarks.txt, prodXxRegion.txt` with  `XX={LA,RA}`
 
+You will work in the `LA_endo, _epi ` and `RA_endo,_epi` folders, 
+where the outputs will be saved. 
+
+
 ### 1. Copy the example folder
 
-> For simplicity, we assume your data folder is in variable `$DATA`
+For simplicity, we assume your data folder is in variable `$DATA`
 
 -------------------------------------------------------------------------------
 
@@ -39,14 +43,27 @@ Parameters and options of the `uac` mode of operation:
 
 + `--uac-stage`: Which stage of the processing: `{1, 2a, 2b}`
 + `--atrium`: Choose between `la` or `ra`
-+ `--layer` : Choose between `endo`, `epi` or `bilayer`
++ `--layer` : Choose between `endo`, `epi` or `bilayer` (this is necessary to specify but it does not have impact on the UAC)
 + `--fourch`: indicates the container to use the 4 Chamber variant of the code.
 + `--msh`   : indicate the mesh name in carp format (no extension)
 + `--landmarks` : indicate name with extension of Landmarks file 
 + `--regions` : indicate name with extension of Regions file 
 
+> We will walk you through the processing of LA endo, you can change names and 
+> parameters accordingly to do LA epi, RA endo and RA epi 
 
-**Stage 1**
+#### Before starting 
+Copy the base parameter files from the corresponding directories. 
+In our case, working in `LA_endo` this would look like 
+```
+cp /path/to/example/Landmarks/LA/prodLaLandmarks.txt $DATA/Landmarks.txt
+cp /path/to/example/Regions/LA/prodLaRegions.txt $DATA/Regions.txt
+```
+
+> NOTE: you do not need to change the names of the files when copying as 
+> the filename is sent as parameter. 
+
+#### 2.1 UAC. Stage 1
 ``` shell
 docker run --rm --volume=$DATA:/data cemrg/uac:3.0-alpha uac --uac-stage 1 --atrium la --layer endo --fourch --msh MeshName --landmarks Landmarks.txt --regions Regions.txt --scale 1000 
 ```
@@ -73,14 +90,8 @@ docker run --rm --volume="$DATA":/shared:z --workdir=/shared docker.opencarp.org
 ```
 -------------------------------------------------------------------------------
 
-**Stage 2a**
+#### 2.2a UAC. Stage 2a
 Notice the only change is in the `--uac-stage` parameter from `1` to `2a`
-``` shell
-docker run --rm --volume=$DATA:/data cemrg/uac:3.0-alpha \
-    uac --uac-stage 2a --atrium la --layer endo --fourch --msh MeshName \ 
-        --landmarks Landmarks.txt --regions Regions.txt --scale 1000 
-```
-In a single line: 
 ``` shell
 docker run --rm --volume=$DATA:/data cemrg/uac:3.0-alpha uac --uac-stage 2a --atrium la --layer endo --fourch --msh MeshName --landmarks Landmarks.txt --regions Regions.txt --scale 1000 
 ```
@@ -104,4 +115,10 @@ docker run --rm --volume="$DATA":/shared:z --workdir=/shared docker.opencarp.org
 docker run --rm --volume="$DATA":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F carpf_laplace_single_UD_A.par -simID UD_Ant_UAC
 docker run --rm --volume="$DATA":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F carpf_laplace_single_UD_P.par -simID UD_Post_UAC
 
+```
+
+#### 2.2b UAC. Stage 2b
+Again, the only change is in the `--uac-stage` parameter from `2a` to `2b`
+``` shell
+docker run --rm --volume=$DATA:/data cemrg/uac:3.0-alpha uac --uac-stage 2b --atrium la --layer endo --fourch --msh MeshName --landmarks Landmarks.txt --regions Regions.txt --scale 1000 
 ```
