@@ -149,3 +149,4 @@ and mapping the Labarthe fibres.
 ```
 docker run --rm --volume="$DATA/LA_epi":/data cemrg/uac:3.0-alpha fibremap --atrium la --layer bilayer --fibre l --fourch --msh-endo Labelled --msh-epi Labelled --msh LA_only --output FLabarthe_
 ```
+> NOTE: you **ONLY** need to specify `--fourch` when calling fibremap when setting`--layer bilayer` 

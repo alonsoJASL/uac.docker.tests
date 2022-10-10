@@ -20,6 +20,9 @@ docker run --rm --volume=/path/to/your/DATA:/data cemrg/uac:3.0-alpha COMMAND PA
 > NOTE: if in `PARAMETERS` you need to add filenames or paths, you will need to 
 > specify **relative paths** to `/path/to/your/DATA`
 
-Each `COMMAND` has a `help` option with usage information. 
+## Useful parameters 
++ Each `COMMAND` has a `help` option with usage information. 
++ Use option `--debug` to see a the command that would be run inside the container.
 
-For more go to the link [here](https://github.com/alonsoJASL/uac.docker.tests/blob/master/quick_guide.md) 
+## Tutorials
++ [Basic 4ch `uac` + `fibremap`](https://github.com/alonsoJASL/uac.docker.tests/blob/master/quick_guide.md) 
