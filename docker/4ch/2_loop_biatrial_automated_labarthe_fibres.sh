@@ -157,7 +157,7 @@ docker run --rm --volume="$DATA/RA_endo":/shared:z --workdir=/shared docker.open
 docker run --rm --volume="$DATA/RA_endo":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F carpf_laplace_LS.par -simID LR_UAC_N2
 
 echo "=====New UAC=====" >> $logfile
-docker run --rm --volume="$DATA/RA_endo":/data cemrg/uac:3.0-alpha uac --uac-stage 2a --atrium ra --fourch --layer endo --msh RA_only_RAA --landmarks Landmarks.txt --regions Regions.txt --scale 1000
+docker run --rm --volume="$DATA/RA_endo":/data cemrg/uac:3.0-alpha uac --uac-stage 2a --atriuA_2a --fourch --layer endo --msh RA_only_RAA --landmarks Landmarks.txt --regions Regions.txt --scale 1000
 
 docker run --rm --volume="$DATA/RA_endo":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F carpf_laplace_single_LR_A.par -simID LR_Ant_UAC
 docker run --rm --volume="$DATA/RA_endo":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F carpf_laplace_single_LR_P.par -simID LR_Post_UAC
@@ -178,10 +178,10 @@ docker run --rm --volume= "$DATA/RA_epi":/data cemrg/uac:3.0-alpha scalarmap --m
 docker run --rm --volume= "$DATA/RA_epi":/data cemrg/uac:3.0-alpha scalarmap --msh RA_only_RAA --scalar-file Extra_PM.dat --output MappedScalar_PM.dat  
 
 echo "Fibre mapping bilayer for LA" >> $logfile
-docker run --rm --volume="$DATA/LA_epi":/data cemrg/uac:3.0-alpha fibremap --atrium la --layer bilayer --fibre l --msh-endo Labelled --msh-epi Labelled --msh LA_only --output Fibre_Labarthe_Bilayer
+docker run --rm --volume="$DATA/LA_epi":/data cemrg/uac:3.0-alpha fibremap --atrium la --layer bilayer --fibre l --fourch --msh-endo Labelled --msh-epi Labelled --msh LA_only --output Fibre_Labarthe_Bilayer
 
 echo "Fibre mapping bilayer for RA" >> $logfile
-docker run --rm --volume="$DATA/RA_epi":/data cemrg/uac:3.0-alpha fibremap --atrium ra --layer bilayer --fibre l --msh-endo Labelled --msh-epi Labelled --msh RA_only_RAA --output Fibre_Labarthe_Bilayer 
+docker run --rm --volume="$DATA/RA_epi":/data cemrg/uac:3.0-alpha fibremap --atrium ra --layer bilayer --fibre l --fourch --msh-endo Labelled --msh-epi Labelled --msh RA_only_RAA --output Fibre_Labarthe_Bilayer
 
 ## remove RA endocardial shell
 meshtool extract mesh -msh=$DATA/RA_epi/Bilayer -tags=1,2,3,8,9 -submsh=$DATA/RA_epi/Bilayer2 -ofmt=vtk

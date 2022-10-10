@@ -34,8 +34,8 @@ where the outputs will be saved.
 
 For simplicity, we assume your data folder is in variable `$DATA`
 
-> We will walk you through the processing of LA endo, you can change names and 
-> parameters accordingly to do LA epi, RA endo and RA epi 
+We will walk you through the processing of LA endo, you can change names and 
+parameters accordingly to do LA epi, RA endo and RA epi 
 
 Copy the base parameter files from the corresponding directories. 
 In our case, working in `LA_endo` this would look like 
@@ -44,7 +44,7 @@ In our case, working in `LA_endo` this would look like
 cp /path/to/example/Landmarks/LA/prodLaLandmarks.txt $DATA/Landmarks.txt
 cp /path/to/example/Regions/LA/prodLaRegions.txt $DATA/Regions.txt
 ```
-NOTE: you do not need to change the names of the files when copying as the filename is sent as parameter.
+> NOTE: you do not need to change the names of the files when copying as the filename is sent as parameter.
 
 
 -------------------------------------------------------------------------------
@@ -123,3 +123,29 @@ Again, the only change is in the `--uac-stage` parameter from `2a` to `2b`
 docker run --rm --volume=$DATA:/data cemrg/uac:3.0-alpha uac --uac-stage 2b --atrium la --layer endo --fourch --msh MeshName --landmarks Landmarks.txt --regions Regions.txt --scale 1000 
 ```
 
+#### Check outputs 
+At the end you will have: 
++ Laplace solves folders (stage 1): `PA_UAC_N2, LR_UAC_N2`
++ Laplace solves folders (stage 2): `LR_Ant_UAC,LR_Post_UAC, UD_Ant_UAC, UD_Post_UAC`
++ Rough UAC approximation: `Labelled_Coords_2D_Rescaling_N3`
++ Refined UAC approximation: `Labelled_Coords_2D_Rescaling_v3_C` (check this one) 
+
+-------------------------------------------------------------------------------
+
+### Fibre Mapping 
+After the UAC, we calculate the fibre mapping with the `fibremap` mode of operation. 
+
++ `--atrium {la,ra}` 
++ `--layer {endo, epi, bilayer}`
++ `--fibre {1,2,...,7,a,l}` : Which fibre file 1 to 7, average `a`, or labarthe `l`
++ `--fourch` 
++ `--msh MeshName` 
++ `--output OutName` Output name (when using endo & epi) or prefix (bilayer) 
++ `--msh-endo Labelled` Necessary in some instances, copy as is 
++ `--msh-epi Labeleld` Necessary in some instances, copy as is 
+
+The following does the bilayer fibre mapping on the endo mesh, using the 4ch variant, 
+and mapping the Labarthe fibres. 
+```
+docker run --rm --volume="$DATA/LA_epi":/data cemrg/uac:3.0-alpha fibremap --atrium la --layer bilayer --fibre l --fourch --msh-endo Labelled --msh-epi Labelled --msh LA_only --output FLabarthe_
+```
