@@ -22,13 +22,13 @@ docker run --rm --volume=/path/to/your/DATA:/data cemrg/uac:3.0-alpha COMMAND PA
 
 ## UAC + Fibre Mapping (4 chamber hearts) 
 
-**Inputs in example folder:** 
+**Inputs:** 
 + Mesh Folders: `LA_endo, LA_epi`, `RA_endo , RA_epi` 
-+ Landmarks Folders: `Landmarks/XX/ prodXxLandmarks.txt, prodXxRegion.txt` with  `XX={LA,RA}`
++ Landmarks Folder: `Landmarks/XX/` with `XX={LA, RA}`
++ Landmarks Files (per folder): `prodXxLandmarks.txt, prodXxRegion.txt` with  `Xx={La,Ra}`
 
-You will work in the `LA_endo, _epi ` and `RA_endo,_epi` folders, 
+You will work in the `LA_endo, LA_epi ` and `RA_endo, RA_epi` folders, 
 where the outputs will be saved. 
-
 
 ### 1. Copy the example folder
 
@@ -61,8 +61,6 @@ Parameters and options of the `uac` mode of operation:
 + `--msh`   : indicate the mesh name in carp format (no extension)
 + `--landmarks` : indicate name with extension of Landmarks file 
 + `--regions` : indicate name with extension of Regions file 
-
-
 
 
 #### 2.1 UAC. Stage 1
@@ -124,3 +122,4 @@ Again, the only change is in the `--uac-stage` parameter from `2a` to `2b`
 ``` shell
 docker run --rm --volume=$DATA:/data cemrg/uac:3.0-alpha uac --uac-stage 2b --atrium la --layer endo --fourch --msh MeshName --landmarks Landmarks.txt --regions Regions.txt --scale 1000 
 ```
+
