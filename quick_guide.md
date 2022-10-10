@@ -34,6 +34,19 @@ where the outputs will be saved.
 
 For simplicity, we assume your data folder is in variable `$DATA`
 
+> We will walk you through the processing of LA endo, you can change names and 
+> parameters accordingly to do LA epi, RA endo and RA epi 
+
+Copy the base parameter files from the corresponding directories. 
+In our case, working in `LA_endo` this would look like 
+
+```
+cp /path/to/example/Landmarks/LA/prodLaLandmarks.txt $DATA/Landmarks.txt
+cp /path/to/example/Regions/LA/prodLaRegions.txt $DATA/Regions.txt
+```
+NOTE: you do not need to change the names of the files when copying as the filename is sent as parameter.
+
+
 -------------------------------------------------------------------------------
 
 ### 2. UAC
@@ -49,19 +62,8 @@ Parameters and options of the `uac` mode of operation:
 + `--landmarks` : indicate name with extension of Landmarks file 
 + `--regions` : indicate name with extension of Regions file 
 
-> We will walk you through the processing of LA endo, you can change names and 
-> parameters accordingly to do LA epi, RA endo and RA epi 
 
-#### Before starting 
-Copy the base parameter files from the corresponding directories. 
-In our case, working in `LA_endo` this would look like 
-```
-cp /path/to/example/Landmarks/LA/prodLaLandmarks.txt $DATA/Landmarks.txt
-cp /path/to/example/Regions/LA/prodLaRegions.txt $DATA/Regions.txt
-```
 
-> NOTE: you do not need to change the names of the files when copying as 
-> the filename is sent as parameter. 
 
 #### 2.1 UAC. Stage 1
 ``` shell
