@@ -3,6 +3,8 @@ set -euo pipefail
 
 if [ $# -eq 0 ] ; then
     >&2 echo 'No arguments supplied'
+    >&2 echo '    PROJECT'
+    >&2 echo '    DATA'
     exit 1
 fi
 
@@ -20,15 +22,15 @@ cp "$DATA/Landmarks/LA/prodRaRegion.txt" "$laendo_dir/Regions.txt"
 parfile_array=("single_LR_P" "single_UD_P" "single_LR_A" "single_UD_A" "LS_4Ch" "PA_4Ch" "LAA_4Ch")
 for pf in ${parfile_array}; do 
     echo "Copying file: carpf_laplace_$pf"
-    python $PROJECT/docker/entrypoint.py getparfile --base-dir "$laendo_dir/" --lapsolve-par "carpf_laplace_$pf"
+    python $PROJECT/docker/entrypoint.py getparfile --lapsolve-par "carpf_laplace_$pf" --dev-base-dir "$laendo_dir/" --dev-code-dir "$PROJECT" --dev-run-local 
 done
 
 meshtool convert -imsh=$laendo_dir/LA_endo.vtk -omsh="$laendo_dir/$mname" -ofmt=carp_txt -scale=1000
 
 
 ## Old UAC approximation
-# python $PROJECT/uac/1_la_4ch.py "$laendo_dir/" "$mname" Landmarks.txt Regions.txt 1000
-python $PROJECT/docker/entrypoint.py uac --uac-stage 1 --atrium la --fourch --base-dir "$laendo_dir/" --layer endo --msh "$mname" --landmarks Landmarks.txt --regions Regions.txt --scale 1000
+python $PROJECT/uac/1_la_4ch.py "$laendo_dir/" "$mname" Landmarks.txt Regions.txt 1000
+# python $PROJECT/docker/entrypoint.py uac --uac-stage 1 --atrium la --fourch --layer endo --msh "$mname" --landmarks Landmarks.txt --regions Regions.txt --scale 1000 --dev-base-dir "$laendo_dir/" --dev-code-dir "$PROJECT" --dev-run-local 
 
 
 docker run --rm --volume="$laendo_dir":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F carpf_laplace_PA.par -simID PA_UAC_N2
@@ -36,8 +38,8 @@ docker run --rm --volume="$laendo_dir":/shared:z --workdir=/shared docker.openca
 
 
 echo "=====New UAC====="
-# python $PROJECT/uac/2a_la_4ch.py "$laendo_dir/" "$mname" Landmarks.txt Regions.txt 1000
-python $PROJECT/docker/entrypoint.py uac --uac-stage 2a --atrium la --fourch --base-dir "$laendo_dir/" --layer endo --msh "$mname" --landmarks Landmarks.txt --regions Regions.txt --scale 1000
+python $PROJECT/uac/2a_la_4ch.py "$laendo_dir/" "$mname" Landmarks.txt Regions.txt 1000
+# python $PROJECT/docker/entrypoint.py uac --uac-stage 2a --atrium la --fourch --layer endo --msh "$mname" --landmarks Landmarks.txt --regions Regions.txt --scale 1000 --dev-base-dir "$laendo_dir/" --dev-code-dir "$PROJECT" --dev-run-local 
 
 docker run --rm --volume="$laendo_dir":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F carpf_laplace_single_LR_A.par -simID LR_Ant_UAC
 docker run --rm --volume="$laendo_dir":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F carpf_laplace_single_LR_P.par -simID LR_Post_UAC
@@ -46,8 +48,8 @@ docker run --rm --volume="$laendo_dir":/shared:z --workdir=/shared docker.openca
 
 
 echo "=====New UAC part 2====="
-# python $PROJECT/uac/2b_la.py "$laendo_dir/" "$PROJECT/fibre_files/la/endo/" "$PROJECT/laplace_files/" "$mname" 11 13 21 23 25 27 1
-python $PROJECT/docker/entrypoint.py uac --uac-stage 2b --atrium la --fourch --base-dir "$laendo_dir/" --layer endo --msh "$mname" --landmarks Landmarks.txt --regions Regions.txt --scale 1000
+python $PROJECT/uac/2b_la.py "$laendo_dir/" "$PROJECT/fibre_files/la/endo/" "$PROJECT/laplace_files/" "$mname" 11 13 21 23 25 27 1
+# python $PROJECT/docker/entrypoint.py uac --uac-stage 2b --atrium la --fourch --layer endo --msh "$mname" --landmarks Landmarks.txt --regions Regions.txt --scale 1000 --dev-base-dir "$laendo_dir/" --dev-code-dir "$PROJECT" --dev-run-local 
 
 
 cp "$DATA/Landmarks/LA/prodRaLandmarks.txt" "$DATA/LA_epi/Landmarks.txt"

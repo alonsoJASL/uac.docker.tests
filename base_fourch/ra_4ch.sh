@@ -85,7 +85,7 @@ echo "-finished (Fibre Mapping - single layer)" >> $logfile
 echo "finished ENDO" >> $logfile 
 
 l="epi"
-echo "-EPI"  >> $logfile 
+echo "EPI"  >> $logfile
 echo "-Copy landmark files from example dir to [$DATA/RA_$l]" >> $logfile 
 cp "$DATA/Landmarks/LA/prodRaLandmarks.txt" "$DATA/RA_$l/Landmarks.txt"
 cp "$DATA/Landmarks/LA/prodRaRegion.txt" "$DATA/RA_$l/Regions.txt"
@@ -105,13 +105,13 @@ docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha labels --labels
 echo "-finished (uac labels)" >> $logfile
 
 echo "-UAC Stage 1" >> $logfile 
-docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha uac --uac-stage 1 --atrium ra --layer $l --fourch --msh RA_only --landmarks Landmarks.txt --regions Regions.txt --scale 1000
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha uac --uac-stage 1 --atrium ra --layer $l --fourch --msh RA_only_RAA --landmarks Landmarks.txt --regions Regions.txt --scale 1000
 echo "-finished (UAC Stage 1)" >> $logfile 
 
 echo "-Laplace solves (1)" >> $logfile 
 echo "--Copying parameter files (LS, PA)" >> $logfile 
-docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha getparfile --lapsolve-par "carpf_laplace_LS" --lapsolve-msh "RA_only"
-docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha getparfile --lapsolve-par "carpf_laplace_PA" --lapsolve-msh "RA_only"
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha getparfile --lapsolve-par "carpf_laplace_LS" --lapsolve-msh "RA_only_RAA"
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha getparfile --lapsolve-par "carpf_laplace_PA" --lapsolve-msh "RA_only_RAA"
 
 echo "--openCARP" >> $logfile 
 docker run --rm --volume="$DATA/RA_$l":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F carpf_laplace_PA.par -simID PA_UAC_N2
@@ -121,7 +121,7 @@ echo "---finished LR" >> $logfile
 echo "-finished (Laplace solves 1)" >> $logfile 
 
 echo "-UAC Stage 2a" >> $logfile 
-docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha uac --uac-stage 2a --atrium ra --layer $l --fourch --msh RA_only --landmarks Landmarks.txt --regions Regions.txt --scale 1000
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha uac --uac-stage 2a --atrium ra --layer $l --fourch --msh RA_only_RAA --landmarks Landmarks.txt --regions Regions.txt --scale 1000
 echo "-finished (UAC Stage 2a)" >> $logfile 
 
 echo "-Laplace solves (2)" >> $logfile 
@@ -143,14 +143,21 @@ echo "---finished UD_Post" >> $logfile
 echo "--finished (Laplace solves 2)" >> $logfile 
 
 echo "-UAC Stage 2b" >> $logfile 
-docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha uac --uac-stage 2b --atrium ra --layer $l --fourch --msh RA_only --landmarks Landmarks.txt --regions Regions.txt --scale 1000
-echo "-finished (UAC Stage 2b)" >> $logfile 
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha uac --uac-stage 2b --atrium ra --layer $l --fourch --msh RA_only_RAA --landmarks Landmarks.txt --regions Regions.txt --scale 1000
+echo "-finished (UAC Stage 2b)" >> $logfile
+
+echo "-Scalar Mapping (necessary for fibramap - bilayer - ra)" >> $logfile
+# CAREFUL - this might not work all the time
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha scalarmap --msh RA_only_RAA --scalar-file Extra_SAN.dat --output MappedScalar_SAN.dat
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha scalarmap --msh RA_only_RAA --scalar-file Extra_CT.dat --output MappedScalar_CT.dat
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha scalarmap --msh RA_only_RAA --scalar-file Extra_PM.dat --output MappedScalar_PM.dat
+echo "-finished Scalar Mapping"
 
 echo "-Fibre Mapping - single layer" >> $logfile 
-docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha fibremap --atrium ra --layer $l --fibre $f --msh RA_only --msh-endo Labelled --msh-epi Labelled --output "Fibre"$f"_"
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:3.0-alpha fibremap --atrium ra --layer $l --fibre $f --msh RA_only_RAA --msh-endo Labelled --msh-epi Labelled --output "Fibre"$f"_"
 echo "-finished (Fibre Mapping - single layer)" >> $logfile 
 
 echo "-Fibre Mapping - bilayer (EPI)" >> $logfile 
-docker run --rm --volume="$DATA/RA_epi":/data cemrg/uac:3.0-alpha fibremap --atrium ra --layer bilayer --fourch --fibre $f --msh RA_only --msh-endo Labelled --msh-epi Labelled --output "Fibre"$f"_"
+docker run --rm --volume="$DATA/RA_epi":/data cemrg/uac:3.0-alpha fibremap --atrium ra --layer bilayer --fourch --fibre $f --msh RA_only_RAA --msh-endo Labelled --msh-epi Labelled --output "Fibre"$f"_"
 echo "-finished (Fibre Mapping - bilayer)" >> $logfile 
-echo "finished EPI" >> $logfile 
+echo "finished EPI" >> $logfile
