@@ -3,6 +3,8 @@ Docker containers have to be **pulled** -like git repos.
 Make sure you get the right version, as the container described here is new, 
 you will need to call it with its full name `docker pull cemrg/uac:3.0-alpha`. 
 
+**IMPORTANT. You need to have access to this and be logged in with your docker hub account.**
+
 + `cermg` : Corresponds to the organisation the container is from 
 + `uac`   : is the name of the container
 + `3.0-alpha` : is the **tag**, which denotes the version. 
