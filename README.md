@@ -25,4 +25,4 @@ docker run --rm --volume=/path/to/your/DATA:/data cemrg/uac:3.0-alpha COMMAND PA
 + Use option `--debug` to see a the command that would be run inside the container.
 
 ## Tutorials
-+ [Basic 4ch `uac` + `fibremap`](https://github.com/alonsoJASL/uac.docker.tests/blob/master/base_fourch/quick_guide.md) 
++ [Example 1. LA,RA extracted from a 4ch mesh](https://github.com/alonsoJASL/uac.docker.tests/blob/master/base_fourch/quick_guide.md) 
