@@ -15,7 +15,7 @@ Look at the table below:
 | UAC Stage 2a        | UAC Stage 2a                         |
 | Laplace Solves (2)  | Laplace Solves (2)                   |
 | UAC Stage 2b        | UAC Stage 2b                         |
-|                     | **Scalar Mapping (for some reason)** |
+|                     | **Scalar Mapping** |
 | Fibre Mapping       | Fibre Mapping                        |
 
 
