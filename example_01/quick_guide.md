@@ -37,7 +37,7 @@ For simplicity, we assume your data folder is in variable `$DATA`
 We will walk you through the processing of LA endo, you can change names and 
 parameters accordingly to do LA epi, RA endo and RA epi 
 
-> Notice that for RA, you need more processing See [here](https://github.com/alonsoJASL/uac.docker.tests/blob/master/base_fourch/differences_la_ra.md)
+> Notice that for RA, you need more processing See [here](differences_la_ra.md)
 
 Copy the base parameter files from the corresponding directories. 
 In our case, working in `LA_endo` this would look like 
