@@ -21,6 +21,19 @@ docker run --rm --volume=/path/to/your/DATA:/data cemrg/uac:3.0-alpha COMMAND PA
 > NOTE: if in `PARAMETERS` you need to add filenames or paths, you will need to 
 > specify **relative paths** to `/path/to/your/DATA`
 
+Finally, this whole pipeline can be run in the script files
+[la_4ch.sh](./la_4ch.sh) and [ra_4ch.sh](./ra_4ch.sh) . 
+To run them, you need to specify the docker version and the folder where the examples 
+are located: 
+```shell
+# normally the version does not change from 3.0-alpha.
+./la_4ch.sh 3.0-alpha /path/to/your/folder
+./ra_4ch.sh 3.0-alpha /path/to/your/folder
+```
+
+Normally the version does not change from  `3.0-alpha`, 
+but this was added to help with testing and developing.
+
 
 ## UAC + Fibre Mapping (4 chamber hearts) 
 
