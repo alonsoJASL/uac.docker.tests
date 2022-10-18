@@ -63,7 +63,7 @@ cp /path/to/example/Regions/LA/prodLaRegions.txt $DATA/Regions.txt
 ```
 > NOTE: you do not need to change the names of the files when copying as the filename is sent as parameter.
 
-Check [here](./landmarks_guide.md) for a guide on landmark selection.
+Check [here](./landmarks_files.md) for a guide on landmark selection.
 
 -------------------------------------------------------------------------------
 
