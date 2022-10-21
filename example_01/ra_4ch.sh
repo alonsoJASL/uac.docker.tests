@@ -3,6 +3,7 @@ set -euo pipefail
 
 if [ $# -eq 0 ] ; then
     >&2 echo 'No arguments supplied'
+    >&2 echo '    DOCKER_TAG (3.0-alpha)'
     >&2 echo '    EXAMPLE_FOLDER'
     exit 1
 fi
@@ -151,9 +152,9 @@ echo "-finished (UAC Stage 2b)" >> $logfile
 
 echo "-Scalar Mapping (necessary for fibramap - bilayer - ra)" >> $logfile
 # CAREFUL - this might not work all the time
-docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:$TAG scalarmap --msh RA_only_RAA --scalar-file Extra_SAN.dat --output MappedScalar_SAN.dat
-docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:$TAG scalarmap --msh RA_only_RAA --scalar-file Extra_CT.dat --output MappedScalar_CT.dat
-docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:$TAG scalarmap --msh RA_only_RAA --scalar-file Extra_PM.dat --output MappedScalar_PM.dat
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:$TAG scalarmap --atrium ra --msh RA_only_RAA --scalar-file-suffix san 
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:$TAG scalarmap --atrium ra --msh RA_only_RAA --scalar-file-suffix ct  
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:$TAG scalarmap --atrium ra --msh RA_only_RAA --scalar-file-suffix pm  
 echo "-finished Scalar Mapping"
 
 echo "-Fibre Mapping - single layer" >> $logfile 
