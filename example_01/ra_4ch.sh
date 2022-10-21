@@ -155,6 +155,7 @@ echo "-Scalar Mapping (necessary for fibramap - bilayer - ra)" >> $logfile
 docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:$TAG scalarmap --atrium ra --msh RA_only_RAA --scalar-file-suffix san 
 docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:$TAG scalarmap --atrium ra --msh RA_only_RAA --scalar-file-suffix ct  
 docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:$TAG scalarmap --atrium ra --msh RA_only_RAA --scalar-file-suffix pm  
+docker run --rm --volume="$DATA/RA_$l":/data cemrg/uac:$TAG scalarmap --atrium ra --bb --msh RA_only_RAA --scalar-file-suffix bb
 echo "-finished Scalar Mapping"
 
 echo "-Fibre Mapping - single layer" >> $logfile 
