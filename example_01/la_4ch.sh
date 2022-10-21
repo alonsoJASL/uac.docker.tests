@@ -122,6 +122,10 @@ echo "-UAC Stage 2b" >> $logfile
 docker run --rm --volume="$DATA/LA_$l":/data cemrg/uac:$TAG uac --uac-stage 2b --atrium la --layer $l --fourch --msh LA_only --landmarks Landmarks.txt --regions Regions.txt --scale 1000
 echo "-finished (UAC Stage 2b)" >> $logfile 
 
+echo "-Scalar Mapping (BB) - not necessary for overall output" >> $logfile 
+docker run --rm --volume="$DATA/LA_$l":/data cemrg/uac:$TAG scalarmap --atrium la --bb --msh LA_only --scalar-file-suffix bb
+echo "-finished Scalar Mapping (BB)" >> $logfile 
+
 echo "-Fibre Mapping - single layer" >> $logfile 
 docker run --rm --volume="$DATA/LA_$l":/data cemrg/uac:$TAG fibremap --atrium la --layer $l --fibre $f --msh LA_only --msh-endo Labelled --msh-epi Labelled --output "Fibre"$f"_"
 echo "-finished (Fibre Mapping - single layer)" >> $logfile 
