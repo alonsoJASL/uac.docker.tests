@@ -8,3 +8,9 @@ This applies for 4ch meshes. In all cases:
 
 ## RA 
 ![RA_landmarks](https://user-images.githubusercontent.com/9891700/196431056-11ef87ed-cef6-43d2-a531-34cc46faf091.png)
+
+# If these landmark fail...
+Try with these: 
+
+
+<img width="1800" height="1127" alt="Screenshot 2025-08-08 at 11 19 17" src="https://github.com/user-attachments/assets/044218d6-b3e8-49be-9785-98e8b968ff3e" />
